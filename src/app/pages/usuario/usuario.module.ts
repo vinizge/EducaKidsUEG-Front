@@ -5,6 +5,7 @@ import { UsuarioComponent } from './usuario.component';
 
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table'
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { TableModule } from 'primeng/table'
   imports: [
     CommonModule,
     FormsModule,
-    TableModule
+    TableModule,
+    FlexLayoutModule
   ],
   exports: [
     UsuarioComponent,

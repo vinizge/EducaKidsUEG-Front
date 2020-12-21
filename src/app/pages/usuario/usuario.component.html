@@ -1,36 +1,43 @@
 <div class="card m-5">
-  <div class="card-body ml-3">
-    <div class="row">
-      <h2 class="ml-5"><strong>Cadastro de Usuários</strong></h2>
-    </div>
+  <div class="card-body">
+    <h2 class="text-center m-5">Cadastro de Usuários</h2>
     <form #usuarioForm="ngForm" name="usuarioForm" id="
       usuarioForm">
-      <div class="row" class="m-3">
-        <label for="inputNome" class="m-3"><strong>Nome</strong></label>
-        <input id="inputNome" required name="inputNome" [(ngModel)]="usuario.nome" type="text">
-        <p *ngIf="submitted && !usuario.nome" style="color: red;">Campo obrigatório</p>
-      </div>
-      <div class="m-3">
-        <label for="inputEmail" class="m-3"><strong>Email</strong></label>
-        <input id="inputEmail" name="inputEmail" [(ngModel)]="usuario.email" type="text" required>
-        <p *ngIf="submitted && !usuario.email" style="color: red;">Campo obrigatório</p>
-      </div>
-      <div class="row" class="m-3">
-        <label for="inputSenha" class="m-3"><strong>Senha</strong></label>
-        <input id="inputSenha" required name="inputSenha" [(ngModel)]="usuario.senha" type="text">
-        <p *ngIf="submitted && !usuario.senha" style="color: red;">Campo obrigatório</p>
-      </div>
-      <div class="row" class="m-3">
-        <button *ngIf="usuario.id" (click)="resetarUsuario()" type=" button" class="btn btn-warning m-3">
-          Cancelar</button>
-        <button type="button" class="btn btn-primary m-3" (click)="salvarUsuario(usuarioForm)"> {{ usuario.id?
-          alterarUser: cadastrarUser }} </button>
+      <div fxLayout="row">
+        <div fxFlex=80>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputNome"><strong>Nome</strong></label>
+            <input fxFlex=80 id="inputNome" required name="inputNome" [(ngModel)]="usuario.nome" type="text">
+            <p *ngIf="submitted && !usuario.nome" style="color: red;">Campo
+          </div>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputEmail"><strong>Email</strong></label>
+            <input fxFlex=80 id="inputEmail" name="inputEmail" [(ngModel)]="usuario.email" type="text" required>
+            <p *ngIf="submitted && !usuario.email" style="color: red;">Campo obrigatório</p>
+          </div>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputSenha"><strong>Senha</strong></label>
+            <input fxFlex=80 id="inputSenha" required name="inputSenha" [(ngModel)]="usuario.senha" type="text">
+            <p *ngIf="submitted && !usuario.senha" style="color: red;">Campo obrigatório</p>
+          </div>
+          <div class="row" class="m-3" style="text-align: end;">
+            <button *ngIf="usuario.id" (click)="resetarUsuario()" type=" button" class="btn btn-warning m-3">
+              Cancelar</button>
+            <button type="button" class="btn btn-primary m-3" (click)="salvarUsuario(usuarioForm)">
+              {{ usuario.id?
+              alterarUser: cadastrarUser }} </button>
+          </div>
+        </div>
+        <div fxFlex=20>
+          <img src="https://i.ibb.co/8BZWGZK/patodonald.jpg" alt="" style="width: 200px; height: 200px;">
+        </div>
       </div>
     </form>
   </div>
+
   <div fxFlex class="card">
     <div class="card-body">
-      <div class="card border bg-green shadow">
+      <div class="card border shadow">
         <div class="card-body">
           <p-table [styleClass]="'bg-green'" #dt [value]="users" class="table" [responsive]="true" [paginator]="true"
             [rows]="10" [globalFilterFields]="['id', 'nome', 'emai']" [rowsPerPageOptions]="[10, 20, 50, 100]">
