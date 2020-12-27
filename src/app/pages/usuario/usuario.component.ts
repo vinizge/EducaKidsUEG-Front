@@ -81,7 +81,6 @@ export class UsuarioComponent implements OnInit {
       id: userId
     };
     this.usuarioService.excluirUsuario(usuario).subscribe(data => {
-      console.log(data);
       this.resetarUsuario();
       this.atualizarListaUsuarios();
     })

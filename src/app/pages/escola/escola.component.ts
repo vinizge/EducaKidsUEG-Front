@@ -17,38 +17,49 @@ export class EscolaComponent implements OnInit {
   public escolas: any[];
 
   constructor(
-    public usuarioService: EscolaService
+    public escolaService: EscolaService
   ) { }
 
   ngOnInit(): void {
     this.inicializarEscola();
-    /*     this.cols = [
-          { field: 'id', header: 'Id' },
-          { field: 'nome', header: 'Nome' },
-          { field: 'email', header: 'Email' },
-        ];
-        this.atualizarListaEscolas(); */
+    this.cols = [
+      { field: 'id', header: 'Id' },
+      { field: 'nome', header: 'Nome' },
+      { field: 'endereco', header: 'Endereco' },
+      { field: 'telefone', header: 'Telefone' },
+    ];
+    this.atualizarListaEscolas();
   }
 
   public inicializarEscola() {
     this.escola = {
       nome: '',
       senha: '',
-      email: '',
-
+      endereco: '',
+      telefone: ''
     }
   }
 
+  public compare(a, b) {
+    if ((a.nome).toLowerCase() < (b.nome).toLowerCase()) {
+      return -1;
+    }
+    if ((a.nome).toLowerCase() > (b.nome).toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  }
+
   public atualizarListaEscolas() {
-    this.usuarioService.getEscolas().subscribe(data => {
-      this.escolas = data;
+    this.escolaService.getEscolas().subscribe(data => {
+      this.escolas = data.sort(this.compare);
     });
   }
 
   public salvarEscola(form: NgForm) {
     this.submitted = true;
     if (form.valid) {
-      this.usuarioService.salvarEscola(this.escola).subscribe(data => {
+      this.escolaService.salvarEscola(this.escola).subscribe(data => {
         if (data) {
           console.log(`A escola ${data.nome} foi inserido com sucesso!`);
         } else {
@@ -65,13 +76,14 @@ export class EscolaComponent implements OnInit {
     let escola = {
       id: escolaId
     };
-    this.usuarioService.getEscola(escola).subscribe(data => {
+    this.escolaService.getEscola(escola).subscribe(data => {
       if (data) {
         this.escola.id = data.id;
         this.escola.nome = data.nome;
-        this.escola.email = data.email;
+        this.escola.endereco = data.endereco;
+        this.escola.telefone = data.telefone;
       } else {
-        console.log("Escola não encontrado");
+        console.log("Escola não encontrada");
       }
     });
   }
@@ -80,8 +92,7 @@ export class EscolaComponent implements OnInit {
     let escola = {
       id: escolaId
     };
-    this.usuarioService.excluirEscola(escola).subscribe(data => {
-      console.log(data);
+    this.escolaService.excluirEscola(escola).subscribe(data => {
       this.resetarEscola();
       this.atualizarListaEscolas();
     })
