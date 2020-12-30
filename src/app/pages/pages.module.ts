@@ -7,12 +7,14 @@ import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProfessorComponent } from './professor/professor.component';
+import { AlunoComponent } from './aluno/aluno.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     EscolaComponent,
-    ProfessorComponent],
+    ProfessorComponent,
+    AlunoComponent],
   imports: [
     CommonModule,
     UsuarioModule,

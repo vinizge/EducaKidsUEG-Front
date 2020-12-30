@@ -1,0 +1,135 @@
+<div class="card m-5">
+  <div class="card-body">
+    <h2 class="text-center m-5">Cadastro de Alunos</h2>
+    <form #alunoForm="ngForm" name="alunoForm" id="
+      alunoForm">
+      <div fxLayout="row">
+        <div fxFlex=80>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputNome"><strong>Nome</strong></label>
+            <input fxFlex=80 id="inputNome" required name="inputNome" [(ngModel)]="aluno.nome" type="text">
+          </div>
+          <div fxLayout="row" class="m-3">
+            <p fxFlexOffset=20 *ngIf="submitted && !aluno.nome" style="color: red;">Campo obrigatório</p>
+          </div>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputEmail"><strong>Email</strong></label>
+            <input fxFlex=80 id="inputEmail" name="inputEmail" [(ngModel)]="aluno.email" type="text" required>
+          </div>
+          <div fxLayout="row" class="m-3">
+            <p fxFlexOffset=20 *ngIf="submitted && !aluno.email" style="color: red;">Campo obrigatório</p>
+          </div>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputSenha"><strong>Senha</strong></label>
+            <input fxFlex=80 id="inputSenha" required name="inputSenha" [(ngModel)]="aluno.senha" type="text">
+          </div>
+          <div fxLayout="row" class="m-3">
+            <p fxFlexOffset=20 *ngIf="submitted && !aluno.senha" style="color: red;">Campo obrigatório</p>
+          </div>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputEscola"><strong>Escola</strong></label>
+            <select fxFlex=80 name="escolaInput" id="escolaInput" [(ngModel)]="aluno.EscolaId">
+              <option value="">Selecione uma escola</option>
+              <option value="{{escola.id}}" *ngFor="let escola of escolas"> {{ escola.nome }} </option>
+            </select>
+          </div>
+          <div fxLayout="row" class="m-3">
+            <p fxFlexOffset=20 *ngIf="submitted && ((!aluno.EscolaId) || (aluno.EscolaId == ''))" style="color: red;">
+              Campo obrigatório</p>
+          </div>
+          <div class="row" class="m-3" style="text-align: end;">
+            <button *ngIf="aluno.id" (click)="resetarAluno()" type=" button" class="btn btn-warning m-3">
+              Cancelar</button>
+            <button type="button" class="btn btn-primary m-3" (click)="salvarAluno(alunoForm)">
+              {{ aluno.id?
+              alterarAlunoLabel: cadastrarAluno }} </button>
+          </div>
+        </div>
+        <div fxFlex=20>
+          <img src="https://i.ibb.co/8BZWGZK/patodonald.jpg" alt="" style="width: 200px; height: 200px;">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div fxFlex class="card">
+    <div class="card-body">
+      <div class="card border shadow">
+        <div class="card-body">
+          <p-table [styleClass]="'bg-green'" #dt [value]="alunos" class="table" [responsive]="true" [paginator]="true"
+            [rows]="10" [globalFilterFields]="['id', 'nome', 'email', 'EscolaId']"
+            [rowsPerPageOptions]="[10, 20, 50, 100]">
+            <ng-template pTemplate="caption">
+              <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+                <div fxFlex="250px">
+                  <input type="text" class="form-control" size="50" placeholder="Pesquisar"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')">
+                </div>
+                <div fxFlex="10px">
+                  <i class="fa fa-search"></i>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="text-left" [style.width.px]="100" [pSortableColumn]="'rowIndex'">
+                  <span></span>
+                  <p-sortIcon [field]="'rowIndex'"></p-sortIcon>
+                </th>
+                <th class="text-left" [style.width.px]="100" [pSortableColumn]="'id'">
+                  <span>Id</span>
+                  <p-sortIcon [field]="'id'"></p-sortIcon>
+                </th>
+                <th class="text-left" [pSortableColumn]="'nome'">
+                  <span>Nome</span>
+                  <p-sortIcon [field]="'nome'"></p-sortIcon>
+                </th>
+                <th class="text-left" [pSortableColumn]="'email'">
+                  <span>Email</span>
+                  <p-sortIcon [field]="'email'"></p-sortIcon>
+                </th>
+                <th class="text-left" [pSortableColumn]="'EscolaId'">
+                  <span>Escola</span>
+                </th>
+                <th class="text-center">Ações</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-objeto let-rowIndex="rowIndex">
+              <tr>
+                <td ngClass.xs="text-left" ngClass.sm="text-left" ngClass="text-left">
+                  <div>{{ rowIndex + 1 }}</div>
+                </td>
+                <td ngClass.xs="text-left" ngClass.sm="text-left" ngClass="text-left">
+                  <div>{{ objeto.id }}</div>
+                </td>
+                <td ngClass.xs="text-left" ngClass.sm="text-left" ngClass="text-left">
+                  <div>
+                    {{ objeto.nome }}</div>
+                </td>
+                <td ngClass.xs="text-left" ngClass.sm="text-left" ngClass="text-left">
+                  <div>{{ objeto.email }}</div>
+                </td>
+                <td ngClass.xs="text-left" ngClass.sm="text-left" ngClass="text-left">
+                  <div>{{ objeto.Escola.nome }}</div>
+                </td>
+                <td ngClass="text-center">
+                  <span (click)="alterarAluno(objeto.id)" class="badge badge-success mr-3"
+                    style="cursor: pointer;">Editar</span>
+                  <span (click)="excluirAluno(objeto.id)" style="cursor: pointer;"
+                    class="badge badge-danger">Excluir</span>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="6" class="text-center">
+                  Registros não encontrados
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

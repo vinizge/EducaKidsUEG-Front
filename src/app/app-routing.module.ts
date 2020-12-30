@@ -1,3 +1,4 @@
+import { AlunoComponent } from './pages/aluno/aluno.component';
 import { ProfessorComponent } from './pages/professor/professor.component';
 import { EscolaComponent } from './pages/escola/escola.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: "home", component: HomeComponent, pathMatch: 'full' },
   { path: "escolas", component: EscolaComponent, pathMatch: 'full' },
   { path: "professores", component: ProfessorComponent, pathMatch: 'full' },
+  { path: "alunos", component: AlunoComponent, pathMatch: 'full' },
 ];
 
 @NgModule({
