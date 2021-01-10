@@ -36,10 +36,10 @@
               Campo obrigatório</p>
           </div>
           <div fxLayout="row" class="m-3">
-            <label class="text-center" fxFlex=20 for="inputEscola"><strong>Escola</strong></label>
-            <select multiple fxFlex=80 name="escolaInput" id="escolaInput" [(ngModel)]="turma.EscolaId">
-              <option value="">Selecione uma escola</option>
-              <option value="{{escola.id}}" *ngFor="let escola of escolas"> {{ escola.nome }} </option>
+            <label class="text-center" fxFlex=20 for="inputDisciplina"><strong>Disciplinas</strong></label>
+            <select multiple fxFlex=80 name="inputDisciplina" id="inputDisciplina" [(ngModel)]="turma.turmaDisciplina">
+              <option [ngValue]="disciplina.id" *ngFor="let disciplina of disciplinas"> {{ disciplina.nome }}
+              </option>
             </select>
           </div>
           <div class="row" class="m-3" style="text-align: end;">

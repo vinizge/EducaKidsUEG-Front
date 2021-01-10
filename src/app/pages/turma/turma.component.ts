@@ -1,3 +1,4 @@
+import { DisciplinaService } from './../../services/disciplina.service';
 import { ProfessorService } from './../../services/professor.service';
 import { EscolaService } from './../../services/escola.service';
 import { NgForm } from '@angular/forms';
@@ -19,11 +20,14 @@ export class TurmaComponent implements OnInit {
   public turmas: any[];
   public escolas: any[];
   public professores: any[];
+  public disciplinas: any[];
+  public selectOptions: any[];
 
   constructor(
     public turmaService: TurmaService,
     public escolaService: EscolaService,
-    public professorService: ProfessorService
+    public professorService: ProfessorService,
+    public disciplinaService: DisciplinaService
   ) { }
 
   ngOnInit(): void {
@@ -37,13 +41,15 @@ export class TurmaComponent implements OnInit {
     this.atualizarListaTurmas();
     this.getEscolas();
     this.getProfessores();
+    this.getDisciplinas();
   }
 
   public inicializarTurma() {
     this.turma = {
       nome: '',
       ProfessorId: '',
-      EscolaId: ''
+      EscolaId: '',
+      turmaDisciplina: [],
     }
   }
 
@@ -69,6 +75,12 @@ export class TurmaComponent implements OnInit {
     });
   }
 
+  public getDisciplinas() {
+    this.disciplinaService.getDisciplinas().subscribe(data => {
+      this.disciplinas = data;
+    });
+  }
+
   public getProfessores() {
     this.professorService.getProfessores().subscribe(data => {
       this.professores = data;
@@ -78,6 +90,11 @@ export class TurmaComponent implements OnInit {
   public salvarTurma(form: NgForm) {
     this.submitted = true;
     if (form.valid && this.turma.EscolaId && this.turma.ProfessorId) {
+      let array = [];
+      this.turma.turmaDisciplina.forEach(disciplina => {
+        array.push(parseInt(disciplina));
+      });
+      this.turma.turmaDisciplina = array;
       this.turma.EscolaId = parseInt(this.turma.EscolaId);
       this.turma.ProfessorId = parseInt(this.turma.ProfessorId);
       this.turmaService.salvarTurma(this.turma).subscribe(data => {
@@ -103,6 +120,11 @@ export class TurmaComponent implements OnInit {
         this.turma.nome = data.nome;
         this.turma.ProfessorId = data.ProfessorId;
         this.turma.EscolaId = data.EscolaId;
+        let array = []
+        data.Disciplinas.forEach(disciplina => {
+          array.push(disciplina.id);
+        });
+        this.turma.turmaDisciplina = array;
       } else {
         console.log("Turma não encontrado");
       }
