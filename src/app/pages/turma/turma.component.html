@@ -1,37 +1,53 @@
 <div class="card m-5">
   <div class="card-body">
-    <h2 class="text-center m-5">Cadastro de Escolas</h2>
-    <form #escolaForm="ngForm" name="escolaForm" id="
-      escolaForm">
+    <h2 class="text-center m-5">Cadastro de Turmas</h2>
+    <form #turmaForm="ngForm" name="turmaForm" id="
+      turmaForm">
       <div fxLayout="row">
         <div fxFlex=80>
           <div fxLayout="row" class="m-3">
             <label class="text-center" fxFlex=20 for="inputNome"><strong>Nome</strong></label>
-            <input fxFlex=80 id="inputNome" required name="inputNome" [(ngModel)]="escola.nome" type="text">
+            <input fxFlex=80 id="inputNome" required name="inputNome" [(ngModel)]="turma.nome" type="text">
           </div>
           <div fxLayout="row" class="m-3">
-            <p fxFlexOffset=20 *ngIf="submitted && !escola.nome" style="color: red;">Campo obrigatório</p>
+            <p fxFlexOffset=20 *ngIf="submitted && !turma.nome" style="color: red;">Campo obrigatório</p>
           </div>
           <div fxLayout="row" class="m-3">
-            <label class="text-center" fxFlex=20 for="inputEndereco"><strong>Endereco</strong></label>
-            <input fxFlex=80 id="inputEndereco" required name="inputEndereco" [(ngModel)]="escola.endereco" type="text">
+            <label class="text-center" fxFlex=20 for="inputProfessor"><strong>Professor</strong></label>
+            <select fxFlex=80 name="inputProfessor" id="inputProfessor" [(ngModel)]="turma.ProfessorId">
+              <option value="">Selecione um professor</option>
+              <option value="{{professor.id}}" *ngFor="let professor of professores"> {{ professor.nome }} </option>
+            </select>
           </div>
           <div fxLayout="row" class="m-3">
-            <p fxFlexOffset=20 *ngIf="submitted && !escola.endereco" style="color: red;">Campo obrigatório</p>
+            <p fxFlexOffset=20 *ngIf="submitted && ((!turma.ProfessorId) || (turma.ProfessorId == ''))"
+              style="color: red;">
+              Campo obrigatório</p>
           </div>
           <div fxLayout="row" class="m-3">
-            <label class="text-center" fxFlex=20 for="inputTelefone"><strong>Telefone</strong></label>
-            <input fxFlex=80 id="inputTelefone" required name="inputTelefone" [(ngModel)]="escola.telefone" type="text">
+            <label class="text-center" fxFlex=20 for="inputEscola"><strong>Escola</strong></label>
+            <select fxFlex=80 name="escolaInput" id="escolaInput" [(ngModel)]="turma.EscolaId">
+              <option value="">Selecione uma escola</option>
+              <option value="{{escola.id}}" *ngFor="let escola of escolas"> {{ escola.nome }} </option>
+            </select>
           </div>
           <div fxLayout="row" class="m-3">
-            <p fxFlexOffset=20 *ngIf="submitted && !escola.telefone" style="color: red;">Campo obrigatório</p>
+            <p fxFlexOffset=20 *ngIf="submitted && ((!turma.EscolaId) || (turma.EscolaId == ''))" style="color: red;">
+              Campo obrigatório</p>
+          </div>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputEscola"><strong>Escola</strong></label>
+            <select multiple fxFlex=80 name="escolaInput" id="escolaInput" [(ngModel)]="turma.EscolaId">
+              <option value="">Selecione uma escola</option>
+              <option value="{{escola.id}}" *ngFor="let escola of escolas"> {{ escola.nome }} </option>
+            </select>
           </div>
           <div class="row" class="m-3" style="text-align: end;">
-            <button *ngIf="escola.id" (click)="resetarEscola()" type=" button" class="btn btn-warning m-3">
+            <button *ngIf="turma.id" (click)="resetarTurma()" type=" button" class="btn btn-warning m-3">
               Cancelar</button>
-            <button type="button" class="btn btn-primary m-3" (click)="salvarEscola(escolaForm)">
-              {{ escola.id?
-              alterarEscolaLabel: cadastrarEscola }} </button>
+            <button type="button" class="btn btn-primary m-3" (click)="salvarTurma(turmaForm)">
+              {{ turma.id?
+              alterarTurmaLabel: cadastrarTurma }} </button>
           </div>
         </div>
         <div fxFlex=20>
@@ -45,8 +61,8 @@
     <div class="card-body">
       <div class="card border shadow">
         <div class="card-body">
-          <p-table [styleClass]="'bg-green'" #dt [value]="escolas" class="table" [responsive]="true" [paginator]="true"
-            [rows]="10" [globalFilterFields]="['id', 'nome', 'endereco', 'telefone']"
+          <p-table [styleClass]="'bg-green'" #dt [value]="turmas" class="table" [responsive]="true" [paginator]="true"
+            [rows]="10" [globalFilterFields]="['id', 'nome', 'ProfessorId', 'EscolaId']"
             [rowsPerPageOptions]="[10, 20, 50, 100]">
             <ng-template pTemplate="caption">
               <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
@@ -73,13 +89,11 @@
                   <span>Nome</span>
                   <p-sortIcon [field]="'nome'"></p-sortIcon>
                 </th>
-                <th class="text-left" [pSortableColumn]="'endereco'">
-                  <span>Endereco</span>
-                  <p-sortIcon [field]="'endereco'"></p-sortIcon>
+                <th class="text-left" [pSortableColumn]="'ProfessorId'">
+                  <span>Professor</span>
                 </th>
-                <th class="text-left" [pSortableColumn]="'telefone'">
-                  <span>Telefone</span>
-                  <p-sortIcon [field]="'telefone'"></p-sortIcon>
+                <th class="text-left" [pSortableColumn]="'EscolaId'">
+                  <span>Escola</span>
                 </th>
                 <th class="text-center">Ações</th>
               </tr>
@@ -97,15 +111,15 @@
                     {{ objeto.nome }}</div>
                 </td>
                 <td ngClass.xs="text-left" ngClass.sm="text-left" ngClass="text-left">
-                  <div>{{ objeto.endereco }}</div>
+                  <div>{{ objeto.Professor.nome }}</div>
                 </td>
                 <td ngClass.xs="text-left" ngClass.sm="text-left" ngClass="text-left">
-                  <div>{{ objeto.telefone }}</div>
+                  <div>{{ objeto.Escola.nome }}</div>
                 </td>
                 <td ngClass="text-center">
-                  <span (click)="alterarEscola(objeto.id)" class="badge badge-success mr-3"
+                  <span (click)="alterarTurma(objeto.id)" class="badge badge-success mr-3"
                     style="cursor: pointer;">Editar</span>
-                  <span (click)="excluirEscola(objeto.id)" style="cursor: pointer;"
+                  <span (click)="excluirTurma(objeto.id)" style="cursor: pointer;"
                     class="badge badge-danger">Excluir</span>
                 </td>
               </tr>

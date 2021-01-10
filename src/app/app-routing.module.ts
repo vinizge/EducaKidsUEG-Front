@@ -1,3 +1,5 @@
+import { TurmaComponent } from './pages/turma/turma.component';
+import { DisciplinaComponent } from './pages/disciplina/disciplina.component';
 import { AlunoComponent } from './pages/aluno/aluno.component';
 import { ProfessorComponent } from './pages/professor/professor.component';
 import { EscolaComponent } from './pages/escola/escola.component';
@@ -12,6 +14,8 @@ const routes: Routes = [
   { path: "escolas", component: EscolaComponent, pathMatch: 'full' },
   { path: "professores", component: ProfessorComponent, pathMatch: 'full' },
   { path: "alunos", component: AlunoComponent, pathMatch: 'full' },
+  { path: "disciplinas", component: DisciplinaComponent, pathMatch: 'full' },
+  { path: "turmas", component: TurmaComponent, pathMatch: 'full' },
 ];
 
 @NgModule({

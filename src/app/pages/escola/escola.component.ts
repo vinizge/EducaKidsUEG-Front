@@ -34,7 +34,6 @@ export class EscolaComponent implements OnInit {
   public inicializarEscola() {
     this.escola = {
       nome: '',
-      senha: '',
       endereco: '',
       telefone: ''
     }
