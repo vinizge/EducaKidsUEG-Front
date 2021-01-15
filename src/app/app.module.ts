@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TableModule } from 'primeng/table';
+import { JwtInterceptor } from './utils/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -22,10 +23,11 @@ import { TableModule } from 'primeng/table';
     NgbModule,
     TableModule,
     HttpClientModule,
-    FlexLayoutModule
-
+    FlexLayoutModule,
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule, {
+    provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,19 +9,19 @@ export class PerguntaService {
 
   constructor(private http: HttpClient) { }
 
-  public salvarPergunta(escola: any): Observable<any> {
-    return this.http.post(`http://localhost:3000/escolas/save`, escola);
+  public salvarPergunta(pergunta: any): Observable<any> {
+    return this.http.post(`http://localhost:3000/perguntas/save`, pergunta);
   }
 
-  public getPergunta(escola: any): Observable<any> {
-    return this.http.post(`http://localhost:3000/escolas/get`, escola);
+  public getPergunta(pergunta: any): Observable<any> {
+    return this.http.post(`http://localhost:3000/perguntas/get`, pergunta);
   }
 
   public getPerguntas(): Observable<any> {
-    return this.http.get(`http://localhost:3000/escolas/getAll`);
+    return this.http.get(`http://localhost:3000/perguntas/getAll`);
   }
 
-  public excluirPergunta(escola: any): Observable<any> {
-    return this.http.post(`http://localhost:3000/escolas/delete`, escola);
+  public excluirPergunta(pergunta: any): Observable<any> {
+    return this.http.post(`http://localhost:3000/perguntas/delete`, pergunta);
   }
 }

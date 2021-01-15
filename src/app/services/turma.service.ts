@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TurmaService {
+  public token = localStorage.getItem("token");
+  public httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    })
+  };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   public salvarTurma(turma: any): Observable<any> {
     return this.http.post(`http://localhost:3000/turmas/save`, turma);
@@ -18,7 +26,7 @@ export class TurmaService {
   }
 
   public getTurmas(): Observable<any> {
-    return this.http.get(`http://localhost:3000/turmas/getAll`);
+    return this.http.get(`http://localhost:3000/turmas/getAll`, this.httpOptions);
   }
 
   public excluirTurma(turma: any): Observable<any> {

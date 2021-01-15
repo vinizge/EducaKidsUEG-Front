@@ -1,0 +1,32 @@
+<div class="card m-5">
+  <div class="card-body">
+    <h2 class="text-center m-5">Login</h2>
+    <form #loginForm="ngForm" name="loginForm" id="
+      loginForm">
+      <div fxLayout="row">
+        <div fxFlex=80>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputEmail"><strong>Email</strong></label>
+            <input fxFlex=80 id="inputEmail" required name="inputEmail" [(ngModel)]="login.email" type="text">
+          </div>
+          <div fxLayout="row" class="m-3">
+            <p fxFlexOffset=20 *ngIf="submitted && !login.email" style="color: red;">Campo obrigatório</p>
+          </div>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputSenha"><strong>Senha</strong></label>
+            <input fxFlex=80 id="inputSenha" required name="inputSenha" [(ngModel)]="login.senha" type="text">
+          </div>
+          <div fxLayout="row" class="m-3">
+            <p fxFlexOffset=20 *ngIf="submitted && !login.senha" style="color: red;">Campo obrigatório</p>
+          </div>
+          <div class="row" class="m-3" style="text-align: end;">
+            <button type="button" class="btn btn-primary m-3" (click)="logar(loginForm)">
+              {{ loginLabel }} </button>
+          </div>
+        </div>
+        <div fxFlex=20>
+          <img src="https://i.ibb.co/8BZWGZK/patodonald.jpg" alt="" style="width: 200px; height: 200px;">
+        </div>
+      </div>
+    </form>
+  </div>

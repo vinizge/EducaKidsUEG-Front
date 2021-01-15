@@ -14,6 +14,7 @@ import { AtividadeComponent } from './atividade/atividade.component';
 import { MidiaComponent } from './midia/midia.component';
 import { PerguntaComponent } from './pergunta/pergunta.component';
 import { ResponderAtividadeComponent } from './responder-atividade/responder-atividade.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ResponderAtividadeComponent } from './responder-atividade/responder-ati
     AtividadeComponent,
     MidiaComponent,
     PerguntaComponent,
-    ResponderAtividadeComponent],
+    ResponderAtividadeComponent,
+    LoginComponent],
   imports: [
     CommonModule,
     UsuarioModule,
