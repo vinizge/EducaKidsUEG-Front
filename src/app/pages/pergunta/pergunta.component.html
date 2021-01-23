@@ -121,7 +121,7 @@
                   <span>Pergunta</span>
                   <p-sortIcon [field]="'nome'"></p-sortIcon>
                 </th>
-                <th class="text-left" [pSortableColumn]="'Objetiva'">
+                <th class="text-left" [pSortableColumn]="'objetiva'">
                   <span>Objetiva</span>
                 </th>
                 <th class="text-center">Ações</th>
@@ -143,7 +143,7 @@
                   <div>{{ objeto.objetiva? "Sim": "Não" }}</div>
                 </td>
                 <td ngClass="text-center">
-                  <span (click)="alterarPergunta(objeto.id)" class="badge badge-success mr-3"
+                  <span (click)="alterarPergunta(objeto.id, perguntaForm)" class="badge badge-success mr-3"
                     style="cursor: pointer;">Editar</span>
                   <span (click)="excluirPergunta(objeto.id)" style="cursor: pointer;"
                     class="badge badge-danger">Excluir</span>

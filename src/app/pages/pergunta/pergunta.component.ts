@@ -20,9 +20,7 @@ export class PerguntaComponent implements OnInit {
   public cadastrarPergunta = "Adicionar";
   public cols: any[];
   public perguntas: any[];
-  public escolas: any[];
   public professores: any[];
-  public disciplinas: any[];
   public selectOptions: any[];
   public professor: { nome: '' };
   public opcoes = ["a", "b", "c", "d"];
@@ -30,9 +28,7 @@ export class PerguntaComponent implements OnInit {
   constructor(
     public route: ActivatedRoute,
     public perguntaService: PerguntaService,
-    public escolaService: EscolaService,
     public professorService: ProfessorService,
-    public disciplinaService: DisciplinaService,
     public loginService: LoginService
   ) { }
 
@@ -114,13 +110,18 @@ export class PerguntaComponent implements OnInit {
     }
   }
 
-  public alterarPergunta(perguntaId: any) {
+  public alterarPergunta(perguntaId: any, form) {
     let pergunta = {
       id: perguntaId
     };
     this.perguntaService.getPergunta(pergunta).subscribe(data => {
       if (data) {
         this.pergunta.objetiva = data.objetiva;
+        if (data.objetiva) {
+          form.value.objetivaSwitch = true;
+        } else {
+          form.value.objetivaSwitch = false;
+        }
         this.pergunta.id = data.id;
         this.pergunta.pergunta = data.pergunta;
         this.pergunta.opcao1 = data.opcao1;

@@ -10,6 +10,8 @@ import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GetMeResolve } from './resolves/getMe.resolve'
+import { MidiaComponent } from './pages/midia/midia.component';
+import { AtividadeComponent } from './pages/atividade/atividade.component';
 
 const routes: Routes = [
   { path: "usuarios", component: UsuarioComponent, pathMatch: 'full' },
@@ -21,6 +23,8 @@ const routes: Routes = [
   { path: "turmas", component: TurmaComponent, pathMatch: 'full' },
   { path: "logins", component: LoginComponent, pathMatch: 'full' },
   { path: "perguntas", component: PerguntaComponent, pathMatch: 'full', resolve: { professor: GetMeResolve } },
+  { path: "midias", component: MidiaComponent, pathMatch: 'full', resolve: { professor: GetMeResolve } },
+  { path: "atividades", component: AtividadeComponent, pathMatch: 'full', resolve: { professor: GetMeResolve } },
 ];
 
 @NgModule({
