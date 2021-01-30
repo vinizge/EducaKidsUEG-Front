@@ -32,28 +32,32 @@
           <div *ngIf="pergunta.objetiva">
             <div fxLayout="row" class="m-3">
               <label class="text-center" fxFlex=20 for="inputOpcao1"><strong>Opção 1</strong></label>
-              <input fxFlex=80 id="inputOpcao1" required name="inputOpcao1" [(ngModel)]="pergunta.opcao1" type="text">
+              <input fxFlex=80 id="inputOpcao1" required="pergunta.objetiva" name="inputOpcao1"
+                [(ngModel)]="pergunta.opcao1" type="text">
             </div>
             <div fxLayout="row" class="m-3">
               <p fxFlexOffset=20 *ngIf="submitted && !pergunta.opcao1" style="color: red;">Campo obrigatório</p>
             </div>
             <div fxLayout="row" class="m-3">
               <label class="text-center" fxFlex=20 for="inputOpcao2"><strong>Opção 2</strong></label>
-              <input fxFlex=80 id="inputOpcao2" required name="inputOpcao2" [(ngModel)]="pergunta.opcao2" type="text">
+              <input fxFlex=80 id="inputOpcao2" required="pergunta.objetiva" name="inputOpcao2"
+                [(ngModel)]="pergunta.opcao2" type="text">
             </div>
             <div fxLayout="row" class="m-3">
               <p fxFlexOffset=20 *ngIf="submitted && !pergunta.opcao2" style="color: red;">Campo obrigatório</p>
             </div>
             <div fxLayout="row" class="m-3">
               <label class="text-center" fxFlex=20 for="inputOpcao3"><strong>Opção 3</strong></label>
-              <input fxFlex=80 id="inputOpcao3" required name="inputOpcao3" [(ngModel)]="pergunta.opcao3" type="text">
+              <input fxFlex=80 id="inputOpcao3" required="pergunta.objetiva" name="inputOpcao3"
+                [(ngModel)]="pergunta.opcao3" type="text">
             </div>
             <div fxLayout="row" class="m-3">
               <p fxFlexOffset=20 *ngIf="submitted && !pergunta.opcao3" style="color: red;">Campo obrigatório</p>
             </div>
             <div fxLayout="row" class="m-3">
               <label class="text-center" fxFlex=20 for="inputOpcao4"><strong>Opção 4</strong></label>
-              <input fxFlex=80 id="inputOpcao4" required name="inputOpcao4" [(ngModel)]="pergunta.opcao4" type="text">
+              <input fxFlex=80 id="inputOpcao4" required="pergunta.objetiva" name="inputOpcao4"
+                [(ngModel)]="pergunta.opcao4" type="text">
             </div>
             <div fxLayout="row" class="m-3">
               <p fxFlexOffset=20 *ngIf="submitted && !pergunta.opcao4" style="color: red;">Campo obrigatório</p>

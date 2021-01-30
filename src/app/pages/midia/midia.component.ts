@@ -1,6 +1,4 @@
-import { DisciplinaService } from './../../services/disciplina.service';
 import { ProfessorService } from './../../services/professor.service';
-import { EscolaService } from './../../services/escola.service';
 import { NgForm } from '@angular/forms';
 import { MidiaService } from '../../services/midia.service';
 import { Component, OnInit, Output } from '@angular/core';
