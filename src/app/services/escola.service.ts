@@ -17,6 +17,10 @@ export class EscolaService {
     return this.http.post(`http://localhost:3000/escolas/get`, escola);
   }
 
+  public getEscolaByProfessor(): Observable<any> {
+    return this.http.get(`http://localhost:3000/escolas/getEscolaByProfessor`);
+  }
+
   public getEscolas(): Observable<any> {
     return this.http.get(`http://localhost:3000/escolas/getAll`);
   }

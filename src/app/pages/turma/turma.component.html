@@ -35,13 +35,6 @@
             <p fxFlexOffset=20 *ngIf="submitted && ((!turma.EscolaId) || (turma.EscolaId == ''))" style="color: red;">
               Campo obrigatório</p>
           </div>
-          <div fxLayout="row" class="m-3">
-            <label class="text-center" fxFlex=20 for="inputDisciplina"><strong>Disciplinas</strong></label>
-            <select multiple fxFlex=80 name="inputDisciplina" id="inputDisciplina" [(ngModel)]="turma.turmaDisciplina">
-              <option [ngValue]="disciplina.id" *ngFor="let disciplina of disciplinas"> {{ disciplina.nome }}
-              </option>
-            </select>
-          </div>
           <div class="row" class="m-3" style="text-align: end;">
             <button *ngIf="turma.id" (click)="resetarTurma()" type=" button" class="btn btn-warning m-3">
               Cancelar</button>

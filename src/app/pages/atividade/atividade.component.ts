@@ -1,4 +1,4 @@
-import { DisciplinaService } from './../../services/disciplina.service';
+import { TurmaService } from './../../services/turma.service';
 import { ProfessorService } from './../../services/professor.service';
 import { NgForm } from '@angular/forms';
 import { AtividadeService } from '../../services/atividade.service';
@@ -24,6 +24,7 @@ export class AtividadeComponent implements OnInit {
   public professor: { nome: '' };
   public perguntas: any[];
   public midias: any[];
+  public turmas: any[];
 
   constructor(
     public route: ActivatedRoute,
@@ -31,7 +32,8 @@ export class AtividadeComponent implements OnInit {
     public professorService: ProfessorService,
     public loginService: LoginService,
     public perguntaService: PerguntaService,
-    public midiaService: MidiaService
+    public midiaService: MidiaService,
+    public turmaService: TurmaService
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +41,7 @@ export class AtividadeComponent implements OnInit {
     this.inicializaPerguntas();
     this.inicializaMidias();
     this.inicializarAtividade();
+    this.inicializaTurmas();
     this.cols = [
       { field: 'id', header: 'Id' },
       { field: 'nome', header: 'Nome' },
@@ -56,6 +59,7 @@ export class AtividadeComponent implements OnInit {
       ProfessorId: professor["id"],
       midiaAtividade: [],
       perguntaAtividade: [],
+      turma: ''
     }
   }
 
@@ -71,6 +75,14 @@ export class AtividadeComponent implements OnInit {
     this.midiaService.getMidias().subscribe(data => {
       if (data) {
         this.midias = data;
+      }
+    })
+  }
+
+  public inicializaTurmas() {
+    this.turmaService.getTurmas().subscribe(data => {
+      if (data) {
+        this.turmas = data;
       }
     })
   }
@@ -117,8 +129,7 @@ export class AtividadeComponent implements OnInit {
 
   public salvarAtividade(form: NgForm) {
     this.submitted = true;
-    console.log(this.atividade)
-    if (form.valid && this.atividade.ProfessorId) {
+    if (form.valid && this.atividade.ProfessorId && this.atividade.turma) {
       let array = [];
       this.atividade.perguntaAtividade.forEach(pergunta => {
         array.push(parseInt(pergunta.id));
@@ -129,6 +140,7 @@ export class AtividadeComponent implements OnInit {
         array.push(parseInt(midia.id));
       });
       this.atividade.midiaAtividade = array;
+      this.atividade.TurmaId = this.atividade.turma;
       this.atividadeService.salvarAtividade(this.atividade).subscribe(data => {
         if (data) {
           console.log(`A atividade ${data.nome} foi inserida com sucesso!`);
@@ -152,6 +164,8 @@ export class AtividadeComponent implements OnInit {
         this.atividade.nome = data.nome;
         this.atividade.perguntaAtividade = data.Pergunta;
         this.atividade.midiaAtividade = data.Midia;
+        this.atividade.turma = data.Turmas[0]["id"];
+        console.log(this.atividade.turma);
         this.verificaMidia();
         this.verificaPergunta();
       } else {
@@ -191,6 +205,7 @@ export class AtividadeComponent implements OnInit {
   public resetarAtividade() {
     this.atividade.id = '';
     this.atividade.nome = '';
+    this.atividade.turma = {}
     this.midias.forEach(midia => {
       midia.check = false;
     });

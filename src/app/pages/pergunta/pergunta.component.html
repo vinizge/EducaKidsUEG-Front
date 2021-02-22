@@ -6,6 +6,16 @@
       <div fxLayout="row">
         <div fxFlex=80>
           <div fxLayout="row" class="m-3">
+            <img style="width: 600px;height: auto;" fxFlexOffset=20 id="exibeImagem" src="{{pergunta.arquivo}}">
+          </div>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputImagem"><strong>Imagem</strong></label>
+            <input fxFlex=60 id="inputImagem" accept="image/*" (change)="carregarImagem($event)" name="inputImagem"
+              type="file">
+            <button *ngIf="pergunta.arquivo" type="button" class="btn btn-danger btn-sm" style="text-align: end;"
+              (click)="apagarImagem()">remover imagem</button>
+          </div>
+          <div fxLayout="row" class="m-3">
             <label class="text-center" fxFlex=20 for="inputProfessor"><strong>Professor</strong></label>
             <input fxFlex=80 id="inputProfessor" required name="inputProfessor" [(ngModel)]="professor.nome" type="text"
               disabled>

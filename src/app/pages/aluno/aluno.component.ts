@@ -1,3 +1,6 @@
+import { LoginService } from './../../services/login.service';
+import { ProfessorService } from './../../services/professor.service';
+import { TurmaService } from './../../services/turma.service';
 import { EscolaService } from './../../services/escola.service';
 import { NgForm } from '@angular/forms';
 import { AlunoService } from '../../services/aluno.service';
@@ -16,11 +19,14 @@ export class AlunoComponent implements OnInit {
   public cadastrarAluno = "Adicionar";
   public cols: any[];
   public alunos: any[];
-  public escolas: any[];
+  public escola: any[];
+  public turmas: any[];
 
   constructor(
     public alunoService: AlunoService,
-    public escolaService: EscolaService
+    public escolaService: EscolaService,
+    public turmaService: TurmaService,
+    public loginService: LoginService
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +39,8 @@ export class AlunoComponent implements OnInit {
       { field: 'escola', header: 'Escola' },
     ];
     this.atualizarListaAlunos();
-    this.getEscolas();
+    this.getEscola();
+    this.getTurmas();
   }
 
   public inicializarAluno() {
@@ -41,7 +48,8 @@ export class AlunoComponent implements OnInit {
       nome: '',
       email: '',
       senha: '',
-      EscolaId: ''
+      EscolaId: '',
+      turma: ''
     }
   }
 
@@ -61,9 +69,16 @@ export class AlunoComponent implements OnInit {
     return 0;
   }
 
-  public getEscolas() {
-    this.escolaService.getEscolas().subscribe(data => {
-      this.escolas = data;
+  public getEscola() {
+    this.escolaService.getEscolaByProfessor().subscribe(data => {
+      this.escola = data.nome;
+      this.aluno.EscolaId = data.id;
+    });
+  }
+
+  public getTurmas() {
+    this.turmaService.getTurmasByProfessor().subscribe(data => {
+      this.turmas = data;
     });
   }
 

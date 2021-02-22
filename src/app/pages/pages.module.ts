@@ -9,7 +9,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProfessorComponent } from './professor/professor.component';
 import { AlunoComponent } from './aluno/aluno.component';
 import { TurmaComponent } from './turma/turma.component';
-import { DisciplinaComponent } from './disciplina/disciplina.component';
 import { AtividadeComponent } from './atividade/atividade.component';
 import { MidiaComponent } from './midia/midia.component';
 import { PerguntaComponent } from './pergunta/pergunta.component';
@@ -23,7 +22,6 @@ import { LoginComponent } from './login/login.component';
     ProfessorComponent,
     AlunoComponent,
     TurmaComponent,
-    DisciplinaComponent,
     AtividadeComponent,
     MidiaComponent,
     PerguntaComponent,

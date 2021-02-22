@@ -7,38 +7,35 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <li *ngIf="role" class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['home']">Página Inicial <span
             class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['logins']">Login</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role == 'professor'" class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['escolas']">Escolas</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role == 'professor'" class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['professores']">Professores</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role == 'professor'" class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['alunos']">Alunos</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['disciplinas']">Disciplinas</a>
-      </li>
-      <li class="nav-item">
+      <li *ngIf="role == 'professor'" class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['turmas']">Turmas</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role == 'professor'" class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['perguntas']">Perguntas</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role == 'professor'" class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['midias']">Mídias</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role == 'professor'" class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['atividades']">Atividades</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="role == 'aluno'" class="nav-item">
         <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['responderAtividades']">Responder
           Atividades</a>
       </li>

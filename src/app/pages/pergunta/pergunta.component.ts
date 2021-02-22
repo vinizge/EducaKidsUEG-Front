@@ -1,6 +1,4 @@
-import { DisciplinaService } from './../../services/disciplina.service';
 import { ProfessorService } from './../../services/professor.service';
-import { EscolaService } from './../../services/escola.service';
 import { NgForm } from '@angular/forms';
 import { PerguntaService } from '../../services/pergunta.service';
 import { Component, OnInit, Output } from '@angular/core';
@@ -64,6 +62,19 @@ export class PerguntaComponent implements OnInit {
       opcao4: '',
       gabarito: '',
       pontuacao: '',
+      arquivo: ''
+    }
+  }
+
+  public carregarImagem(event) {
+    const files = event.target.files;
+    if (files.length === 0)
+      return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.pergunta.arquivo = reader.result;
     }
   }
 
@@ -97,6 +108,9 @@ export class PerguntaComponent implements OnInit {
       if (this.pergunta.pontuacao) {
         this.pergunta.pontuacao = parseFloat(this.pergunta.pontuacao);
       }
+      if (!this.pergunta.objetiva) {
+        this.pergunta.objetiva = false;
+      }
       this.perguntaService.salvarPergunta(this.pergunta).subscribe(data => {
         if (data) {
           console.log(`A pergunta ${data.pergunta} foi inserida com sucesso!`);
@@ -110,7 +124,13 @@ export class PerguntaComponent implements OnInit {
     }
   }
 
+  public apagarImagem() {
+    this.pergunta.arquivo = '';
+    document.getElementById('inputImagem')['value'] = '';
+  }
+
   public alterarPergunta(perguntaId: any, form) {
+    this.resetarPergunta();
     let pergunta = {
       id: perguntaId
     };
@@ -131,6 +151,7 @@ export class PerguntaComponent implements OnInit {
         this.pergunta.gabarito = data.gabarito;
         this.pergunta.pontuacao = data.pontuacao;
         this.pergunta.professor = data.Professor.nome;
+        this.pergunta.arquivo = data.arquivo;
       } else {
         console.log("Pergunta não encontrado");
       }
@@ -149,6 +170,7 @@ export class PerguntaComponent implements OnInit {
 
   public resetarPergunta() {
     this.pergunta = {};
+    this.apagarImagem();
   }
 }
 

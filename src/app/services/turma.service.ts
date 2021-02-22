@@ -25,6 +25,10 @@ export class TurmaService {
     return this.http.post(`http://localhost:3000/turmas/get`, turma);
   }
 
+  public getTurmasByProfessor(): Observable<any> {
+    return this.http.get(`http://localhost:3000/turmas/getAllByProfessor`);
+  }
+
   public getTurmas(): Observable<any> {
     return this.http.get(`http://localhost:3000/turmas/getAll`, this.httpOptions);
   }

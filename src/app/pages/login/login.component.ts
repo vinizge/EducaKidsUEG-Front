@@ -1,6 +1,7 @@
 import { NgForm } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { Component, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   public loginLabel = "Logar";
 
   constructor(
-    public loginService: LoginService,
+    public loginService: LoginService
   ) { }
 
   ngOnInit(): void {
@@ -33,8 +34,9 @@ export class LoginComponent implements OnInit {
     if (form.valid && this.login.email && this.login.senha) {
       this.loginService.login(this.login).subscribe(data => {
         if (data) {
-          console.log(`O login foi feito com sucesso!`);
           localStorage.setItem("token", data.token);
+          localStorage.setItem("role", data.role);
+          window.location.replace('/home')
         } else {
           console.log("Não foi possível realizar a operação");
         }

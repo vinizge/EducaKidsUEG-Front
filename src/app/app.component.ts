@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'EducaKids';
+
+  public role;
+
+  ngOnInit() {
+    this.role = localStorage.getItem("role");
+  }
 }

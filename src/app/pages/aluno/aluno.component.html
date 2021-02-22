@@ -28,13 +28,21 @@
           </div>
           <div fxLayout="row" class="m-3">
             <label class="text-center" fxFlex=20 for="inputEscola"><strong>Escola</strong></label>
-            <select fxFlex=80 name="escolaInput" id="escolaInput" [(ngModel)]="aluno.EscolaId">
-              <option value="">Selecione uma escola</option>
-              <option value="{{escola.id}}" *ngFor="let escola of escolas"> {{ escola.nome }} </option>
-            </select>
+            <input fxFlex=80 id="inputEscola" disabled required name="inputEscola" [(ngModel)]="escola" type="text">
           </div>
           <div fxLayout="row" class="m-3">
             <p fxFlexOffset=20 *ngIf="submitted && ((!aluno.EscolaId) || (aluno.EscolaId == ''))" style="color: red;">
+              Campo obrigatório</p>
+          </div>
+          <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="turmaInput"><strong>Turma</strong></label>
+            <select fxFlex=80 name="turmaInput" id="turmaInput" [(ngModel)]="aluno.turma">
+              <option value="">Selecione uma turma</option>
+              <option value="{{turma.id}}" *ngFor="let turma of turmas"> {{ turma.nome }} </option>
+            </select>
+          </div>
+          <div fxLayout="row" class="m-3">
+            <p fxFlexOffset=20 *ngIf="submitted && ((!aluno.turma) || (aluno.turma == ''))" style="color: red;">
               Campo obrigatório</p>
           </div>
           <div class="row" class="m-3" style="text-align: end;">
