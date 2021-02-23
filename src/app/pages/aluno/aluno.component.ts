@@ -83,9 +83,9 @@ export class AlunoComponent implements OnInit {
   }
 
   public salvarAluno(form: NgForm) {
+    console.log(this.aluno.EscolaId)
     this.submitted = true;
     if (form.valid && this.aluno.EscolaId) {
-      this.aluno.EscolaId = parseInt(this.aluno.EscolaId);
       this.alunoService.salvarAluno(this.aluno).subscribe(data => {
         if (data) {
           console.log(`O aluno ${data.nome} foi inserido com sucesso!`);
@@ -110,6 +110,7 @@ export class AlunoComponent implements OnInit {
         this.aluno.email = data.email;
         this.aluno.senha = "";
         this.aluno.EscolaId = data.EscolaId;
+        this.aluno.turma = data.Turmas[0].id;
       } else {
         console.log("Aluno não encontrado");
       }
@@ -127,7 +128,10 @@ export class AlunoComponent implements OnInit {
   }
 
   public resetarAluno() {
-    this.aluno = {};
+    this.aluno.nome = '';
+    this.aluno.email = '';
+    this.aluno.senha = '';
+    this.aluno.turma = '';
   }
 }
 
