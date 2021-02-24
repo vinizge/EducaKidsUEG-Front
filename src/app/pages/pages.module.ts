@@ -14,6 +14,8 @@ import { MidiaComponent } from './midia/midia.component';
 import { PerguntaComponent } from './pergunta/pergunta.component';
 import { ResponderAtividadeComponent } from './responder-atividade/responder-atividade.component';
 import { LoginComponent } from './login/login.component';
+import { CorrecaoComponent } from './correcao/correcao.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion'
 
 @NgModule({
   declarations: [
@@ -26,13 +28,16 @@ import { LoginComponent } from './login/login.component';
     MidiaComponent,
     PerguntaComponent,
     ResponderAtividadeComponent,
-    LoginComponent],
+    LoginComponent,
+    CorrecaoComponent
+  ],
   imports: [
     CommonModule,
     UsuarioModule,
     TableModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AccordionModule.forRoot()
   ],
   exports: [
     UsuarioModule

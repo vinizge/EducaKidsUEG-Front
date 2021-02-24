@@ -21,6 +21,11 @@ export class ResponderAtividadeService {
     return this.http.get(`http://localhost:3000/responderAtividades/getAll`);
   }
 
+
+  public getAllByAtividade(atividadeId): Observable<any> {
+    return this.http.post(`http://localhost:3000/responderAtividades/getAllByAtividade`, atividadeId);
+  }
+
   public excluirResponderAtividade(responderAtividade: any): Observable<any> {
     return this.http.post(`http://localhost:3000/responderAtividades/delete`, responderAtividade);
   }
