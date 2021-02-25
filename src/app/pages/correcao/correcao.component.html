@@ -1,62 +1,54 @@
 <div class="card m-5">
   <div class="card-body">
-    <h2 class="text-center m-5">Cadastro de Respostas de Atividades</h2>
+    <h2 class="text-center m-5">Correção de Atividades</h2>
     <form #responderAtividadeForm="ngForm" name="responderAtividadeForm" id="
       responderAtividadeForm">
-      <div fxLayout="row">
+      <div *ngIf="atividadePorAluno && atividadeNome != ''" fxLayout="row">
         <div fxFlex=80>
-
-          <accordion [isAnimated]='true' [closeOthers]='true'>
-            <accordion-group *ngFor="let respostasAtividade of respostasAtividades;let i = index" [isOpen]="i == 0">
-              <div accordion-heading class="subtitle-line text-left"><span class="bg-white">Alo teste
-                  {{i + 1}} </span>
-                <i class="fa fa-chevron-right indicador-acorddion"></i>
-              </div>
-            </accordion-group>
-          </accordion>
-
-          <div *ngFor="let pergunta of perguntas; let i = index">
-            <div fxLayout="row" class="m-3">
-              <label class="text-center" fxFlex=20 for="inputPergunta-{{i}}"><strong>Pergunta {{i+1}}:</strong></label>
-              <input fxFlex=80 id="inputPergunta-{{i}}" disabled name="inputPergunta-{{i}}"
-                [(ngModel)]="pergunta.pergunta" type="text">
-            </div>
-            <div *ngIf="!pergunta.objetiva">
-              <div fxLayout="row" class="m-3">
-                <label class="text-center" fxFlex=20 for="inputPerguntaResposta-{{i}}"><strong>Resposta
-                    {{i+1}}:</strong></label>
-                <input fxFlex=80 id="inputPerguntaResposta-{{i}}" name="inputPerguntaResposta-{{i}}"
-                  [(ngModel)]="pergunta.resposta" required="!pergunta.objetiva" type="text">
-              </div>
-              <div fxLayout="row" class="m-3">
-                <p fxFlexOffset=20 *ngIf="submitted && !pergunta.resposta && !pergunta.objetiva" style="color: red;">
-                  Campo obrigatório</p>
-              </div>
-            </div>
-            <div *ngIf="pergunta.objetiva">
-              <div fxLayout="row" class="m-3">
-                <label class="text-center" fxFlex=20 for="inputPerguntaResposta-{{i}}"><strong>Resposta
-                    {{i+1}}:</strong></label>
-                <select fxFlex=80 name="inputPerguntaResposta-{{i}}" id="inputPerguntaResposta-{{i}}"
-                  [(ngModel)]="pergunta.resposta" required="pergunta.objetiva">
-                  <option value="">Selecione uma resposta</option>
-                  <option value="{{opcao.value}}" *ngFor="let opcao of pergunta.opcoes"> {{ opcao.opcao }} </option>
-                </select>
-              </div>
-              <div fxLayout="row" class="m-3">
-                <p fxFlexOffset=20 *ngIf="submitted && !pergunta.resposta && pergunta.objetiva" style="color: red;">
-                  Campo obrigatório</p>
-              </div>
-            </div>
-          </div>
-          <div *ngFor="let midia of midias; let j = index">
-            <div fxLayout="row" class="m-3">
-              <label class="text-center" fxFlex=20 for="inputNome"><strong>Mídia {{j+1}}:</strong></label>
-              <input fxFlex=80 id="inputNome" disabled name="inputNome" [(ngModel)]="midia.nome" type="text">
-            </div>
-            <div fxLayout="row" class="m-3">
-              <label class="text-center" fxFlex=20 for="inputLink"><strong>Link {{j+1}}:</strong></label>
-              <a href="{{midia.link}}" target="_blank">link</a>
+          <div *ngIf="atividadePorAluno" class="card border">
+            <div *ngIf="atividadePorAluno && atividadeNome != ''" class="card-body">
+              <accordion *ngIf="atividadePorAluno" [isAnimated]='true' [closeOthers]='true'>
+                <div accordion-heading style="background-color: rgb(178, 220, 236); font-size: large;"
+                  class="subtitle-line text-center">
+                  <span><strong>{{atividadeNome}}</strong>
+                  </span>
+                </div>
+                <accordion-group *ngFor="let atividade of atividadePorAluno;let i = index" [isOpen]="i == 0">
+                  <div accordion-heading style="background-color: rgb(209, 240, 209);" class="subtitle-line text-left">
+                    <span>
+                      <strong>Aluno: </strong>
+                      {{
+                      atividade[0]['Aluno'].nome}}
+                    </span>
+                    <i class="fa fa-chevron-right indicador-acorddion"></i>
+                  </div>
+                  <div *ngFor="let pergunta of atividade; let j = index">
+                    <div fxLayout="row" class="m-3">
+                      <label class="text-center" fxFlex=20 for="inputPergunta-{{j}}"><strong>Pergunta
+                          {{j+1}}:</strong></label>
+                      <input fxFlex=80 id="inputPergunta-{{j}}" disabled name="inputPergunta-{{j}}"
+                        [(ngModel)]="pergunta.pergunta.pergunta" type="text">
+                    </div>
+                    <div *ngIf="!pergunta.pergunta.objetiva">
+                      <div fxLayout="row" class="m-3">
+                        <label class="text-center" fxFlex=20 for="inputPerguntaResposta-{{j}}"><strong>Resposta
+                            {{j+1}}:</strong></label>
+                        <input fxFlex=80 id="inputPerguntaResposta-{{j}}" name="inputPerguntaResposta-{{j}}"
+                          [(ngModel)]="pergunta.resposta" type="text">
+                      </div>
+                    </div>
+                    <div *ngIf="pergunta.pergunta.objetiva">
+                      <div fxLayout="row" class="m-3">
+                        <label class="text-center" fxFlex=20 for="inputPerguntaResposta-{{j}}"><strong>Resposta
+                            {{j+1}}:</strong></label>
+                        <input fxFlex=80 id="inputPerguntaResposta-{{j}}" name="inputPerguntaResposta-{{j}}"
+                          value="Letra {{pergunta.resposta}} - {{pergunta.resposta == 'a'? pergunta.pergunta.opcao1 : pergunta.resposta == 'b'? pergunta.pergunta.opcao2: pergunta.resposta == 'c'? pergunta.pergunta.opcao3: pergunta.pergunta.opcao4}}"
+                          disabled type="text">
+                      </div>
+                    </div>
+                  </div>
+                </accordion-group>
+              </accordion>
             </div>
           </div>
           <div *ngIf="atividade && atividade.AtividadeId" class="row" class="m-3" style="text-align: end;">

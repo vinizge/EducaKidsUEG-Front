@@ -4,6 +4,7 @@ import { ResponderAtividadeService } from '../../services/responderAtividade.ser
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AtividadeService } from 'src/app/services/atividade.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-correcao',
@@ -21,7 +22,8 @@ export class CorrecaoComponent implements OnInit {
   public midias: any[];
   public respostaAtividade: any[];
   public aluno: any;
-  public respostasAtividades: any[];
+  public atividadePorAluno: any[];
+  public atividadeNome: any;
 
   constructor(
     public route: ActivatedRoute,
@@ -99,28 +101,27 @@ export class CorrecaoComponent implements OnInit {
   }
 
   public corrigirAtividade(atividadeId: any) {
+    this.atividadeNome = '';
+    this.atividadePorAluno = [];
     let atividade = {
       atividadeId: atividadeId
     }
     this.responderAtividadeService.getAllByAtividade(atividade).subscribe(data => {
-      this.respostasAtividades = data;
-    }
-    );
+      let lista = new Array();
+      var grouped = _.mapValues(_.groupBy(data, 'AlunoId'));
+      Object.keys(grouped).map(function (key, index) {
+        lista.push(grouped[key]);
+      });
+      if (lista.length) {
+        this.atividadePorAluno = lista;
+        console.log(this.atividadePorAluno)
+        let acharAtividade = this.atividades.find(busca => busca.id == data[0].AtividadeId);
+        this.atividadeNome = acharAtividade.nome;
+      }
+    });
 
     this.atividade = this.atividades.find(busca => busca.id == atividadeId);
-    this.perguntas = this.atividade['Pergunta'];
-    this.perguntas.forEach(pergunta => {
-      if (pergunta.objetiva) {
-        pergunta.opcoes = [{ opcao: pergunta.opcao1, value: 'a' }, { opcao: pergunta.opcao2, value: 'b' }, { opcao: pergunta.opcao3, value: 'c' }, { opcao: pergunta.opcao4, value: 'd' }]
-      }
-    })
-    this.midias = this.atividade['Midia'];
-    this.atividade.AtividadeId = this.atividade.id;
-    delete this.atividade.id;
-    delete this.atividade.ProfessorId;
-    delete this.atividade.createdAt;
-    delete this.atividade.updatedAt;
-    delete this.atividade.Professor;
+
   }
 
   public resetarResponderAtividade() {
