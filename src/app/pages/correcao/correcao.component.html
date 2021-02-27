@@ -24,41 +24,66 @@
                   </div>
                   <div *ngFor="let pergunta of atividade; let j = index">
                     <div fxLayout="row" class="m-3">
-                      <label class="text-center" fxFlex=20 for="inputPergunta-{{j}}"><strong>Pergunta
+                      <label class="text-center" fxFlex=20 for="inputPergunta-{{j}}{{i}}"><strong>Pergunta
                           {{j+1}}:</strong></label>
-                      <input fxFlex=80 id="inputPergunta-{{j}}" disabled name="inputPergunta-{{j}}"
-                        [(ngModel)]="pergunta.pergunta.pergunta" type="text">
+                      <input fxFlex=60 disabled name="inputPergunta-{{j}}{{i}}" [(ngModel)]="pergunta.pergunta.pergunta"
+                        type="text">
+
+                      <label class=" pl-1 text-center" fxFlex=10
+                        for="inputPergunta-{{j}}"><strong>Pontos:</strong></label>
+                      <input fxFlex=10 disabled style="text-align: center;" type="text"
+                        value="{{  pergunta.pergunta.objetiva && pergunta.resposta == pergunta.pergunta.gabarito? pergunta.nota : pergunta.correcao == true? pergunta.pergunta.pontuacao: '0'  }}">
                     </div>
                     <div *ngIf="!pergunta.pergunta.objetiva">
                       <div fxLayout="row" class="m-3">
-                        <label class="text-center" fxFlex=20 for="inputPerguntaResposta-{{j}}"><strong>Resposta
+                        <label class="text-center" fxFlex=20 for="inputPerguntaResposta-{{j}}{{i}}"><strong>Resposta
                             {{j+1}}:</strong></label>
-                        <input fxFlex=80 id="inputPerguntaResposta-{{j}}" name="inputPerguntaResposta-{{j}}"
+                        <input disabled fxFlex=60 name="inputPerguntaResposta-{{j}}{{i}}"
                           [(ngModel)]="pergunta.resposta" type="text">
+
+                        <label class="text-center" fxFlex=10
+                          for="correcaoSwitch-{{j}}{{i}}"><strong>Correta</strong></label>
+                        <div fxFlex=10 class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input" [value]="pergunta.correcao"
+                            [(ngModel)]="pergunta.correcao" name="correcaoSwitch-{{j}}{{i}}"
+                            id="correcaoSwitch-{{j}}{{i}}">
+                          <label class="custom-control-label" for="correcaoSwitch-{{j}}{{i}}"></label>
+                        </div>
+
                       </div>
                     </div>
                     <div *ngIf="pergunta.pergunta.objetiva">
                       <div fxLayout="row" class="m-3">
-                        <label class="text-center" fxFlex=20 for="inputPerguntaResposta-{{j}}"><strong>Resposta
+                        <label class="text-center" fxFlex=20 for="inputPerguntaResposta-{{j}}{{i}}"><strong>Resposta
                             {{j+1}}:</strong></label>
-                        <input fxFlex=80 id="inputPerguntaResposta-{{j}}" name="inputPerguntaResposta-{{j}}"
+                        <input fxFlex=60 name="inputPerguntaResposta-{{j}}{{i}}"
                           value="Letra {{pergunta.resposta}} - {{pergunta.resposta == 'a'? pergunta.pergunta.opcao1 : pergunta.resposta == 'b'? pergunta.pergunta.opcao2: pergunta.resposta == 'c'? pergunta.pergunta.opcao3: pergunta.pergunta.opcao4}}"
                           disabled type="text">
+                        <div fxFlex=10></div>
+                        <div *ngIf="pergunta.resposta == pergunta.pergunta.gabarito" fxFlex=10>
+                          <span style="color: honeydew;" class="badge bg-success">Correta!</span>
+                        </div>
+                        <div *ngIf="pergunta.resposta != pergunta.pergunta.gabarito" fxFlex=10>
+                          <span style="color: honeydew;" class="badge bg-danger">Errada!</span>
+                        </div>
                       </div>
                     </div>
+                    <br><br>
                   </div>
                 </accordion-group>
               </accordion>
             </div>
           </div>
-          <div *ngIf="atividade && atividade.AtividadeId" class="row" class="m-3" style="text-align: end;">
-            <button (click)="resetarResponderAtividade()" type=" button" class="btn btn-warning m-3">
+          <div *ngIf="atividadePorAluno" class="row" class="m-3" style="text-align: end;">
+            <button type=" button" (click)="resetarResponderAtividade()" class="btn btn-warning m-3">
               Cancelar</button>
-            <button type="button" class="btn btn-primary m-3"
-              (click)="salvarResponderAtividade(responderAtividadeForm)">
-              {{ cadastrarResponderAtividade }} </button>
+            <button type="button" class="btn btn-primary m-3" (click)="salvarCorrigirAtividade(responderAtividadeForm)">
+              Salvar Correções </button>
           </div>
         </div>
+
+
+
         <div fxFlex=20>
           <img src="https://i.ibb.co/8BZWGZK/patodonald.jpg" alt="" style="width: 200px; height: 200px;">
         </div>

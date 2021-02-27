@@ -70,34 +70,34 @@ export class CorrecaoComponent implements OnInit {
     return 0;
   }
 
-  public salvarResponderAtividade(form: NgForm) {
-    this.submitted = true;
-    this.atividade.AlunoId = this.aluno.id
-    if (form.valid && this.atividade.AlunoId && this.atividade.AtividadeId) {
-      console.log("salvou")
-      this.atividade.Pergunta.forEach(pergunta => {
-        pergunta.idPergunta = pergunta.id;
-        delete pergunta.id;
-        pergunta.AlunoId = this.atividade.AlunoId;
-        pergunta.AtividadeId = this.atividade.AtividadeId;
+  public salvarCorrigirAtividade(form: NgForm) {
+    let corrigidas = new Array();
+    this.atividadePorAluno.forEach(pergunta => {
+      pergunta.forEach(element => {
+        corrigidas.push(element);
       });
-      this.atividade.Midia.forEach(midia => {
-        midia.idMidia = midia.id;
-        delete midia.id;
-        midia.AlunoId = this.atividade.AlunoId;
-        midia.AtividadeId = this.atividade.AtividadeId;
-      });
-      this.responderAtividadeService.salvarResponderAtividade(this.atividade).subscribe(data => {
-        if (data) {
-          console.log(`A responderAtividade foi inserida com sucesso!`);
-        } else {
-          console.log("Não foi possível realizar a operação");
-        }
-        this.submitted = false;
-        this.resetarResponderAtividade();
-        this.atualizarListaAtividades();
-      });
+    });
+
+    let midia = new Array();
+
+    let atividade = {
+      AtividadeId: corrigidas[0].AtividadeId,
+      AlunoId: corrigidas[0].AlunoId,
+      Pergunta: corrigidas,
+      Midia: midia,
+      id: corrigidas[0].AtividadeId
     }
+
+    this.responderAtividadeService.salvarResponderAtividade(atividade).subscribe(data => {
+      if (data) {
+        console.log(`A responderAtividade foi inserida com sucesso!`);
+      } else {
+        console.log("Não foi possível realizar a operação");
+      }
+      this.submitted = false;
+      this.resetarResponderAtividade();
+      this.atualizarListaAtividades();
+    });
   }
 
   public corrigirAtividade(atividadeId: any) {
@@ -119,9 +119,7 @@ export class CorrecaoComponent implements OnInit {
         this.atividadeNome = acharAtividade.nome;
       }
     });
-
     this.atividade = this.atividades.find(busca => busca.id == atividadeId);
-
   }
 
   public resetarResponderAtividade() {
@@ -134,6 +132,8 @@ export class CorrecaoComponent implements OnInit {
     }
     this.perguntas = [];
     this.midias = [];
+    this.atividadePorAluno = [];
+    this.atividadeNome = '';
   }
 }
 
