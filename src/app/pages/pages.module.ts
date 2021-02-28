@@ -16,6 +16,8 @@ import { ResponderAtividadeComponent } from './responder-atividade/responder-ati
 import { LoginComponent } from './login/login.component';
 import { CorrecaoComponent } from './correcao/correcao.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion'
+import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
+import { CorrecaoModalComponent } from './correcao/correcao-modal/correcao-modal.component'
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion'
     PerguntaComponent,
     ResponderAtividadeComponent,
     LoginComponent,
-    CorrecaoComponent
+    CorrecaoComponent,
+    CorrecaoModalComponent
   ],
   imports: [
     CommonModule,
@@ -37,10 +40,16 @@ import { AccordionModule } from 'ngx-bootstrap/accordion'
     TableModule,
     FormsModule,
     FlexLayoutModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    ModalModule.forRoot()
   ],
   exports: [
     UsuarioModule
+  ],
+  providers: [
+    BsModalService,
+    BsModalRef,
+    CorrecaoModalComponent
   ]
 })
 export class PagesModule { }

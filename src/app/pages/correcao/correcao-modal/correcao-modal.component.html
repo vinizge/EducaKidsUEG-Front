@@ -1,0 +1,19 @@
+<div style="background-color: rgb(232, 244, 245);" class="card">
+  <div class="card-body">
+    <h3 style="text-align: center;"> {{ atividadeNome }}</h3>
+    <br><br>
+    <div *ngFor="let aluno of lista; let i = index">
+      <div class="card">
+        <div class="card-border">
+          <div class="card-body">
+            <div fxLayout="row" class="m-3">
+              <p fxFlex=50><strong>Aluno: </strong>{{ aluno[0].Aluno.nome }}</p>
+              <p fxFlex=50><Strong>Nota: </Strong> {{ notas[i] }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

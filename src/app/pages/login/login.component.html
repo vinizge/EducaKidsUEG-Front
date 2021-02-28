@@ -14,7 +14,7 @@
           </div>
           <div fxLayout="row" class="m-3">
             <label class="text-center" fxFlex=20 for="inputSenha"><strong>Senha</strong></label>
-            <input fxFlex=80 id="inputSenha" required name="inputSenha" [(ngModel)]="login.senha" type="text">
+            <input fxFlex=80 id="inputSenha" required name="inputSenha" [(ngModel)]="login.senha" type="password">
           </div>
           <div fxLayout="row" class="m-3">
             <p fxFlexOffset=20 *ngIf="submitted && !login.senha" style="color: red;">Campo obrigatório</p>

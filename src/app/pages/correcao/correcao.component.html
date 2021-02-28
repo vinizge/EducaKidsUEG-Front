@@ -75,6 +75,8 @@
             </div>
           </div>
           <div *ngIf="atividadePorAluno" class="row" class="m-3" style="text-align: end;">
+            <button type=" button" (click)="abrirRelatorioModal()" class="btn btn-success m-3">
+              Relatório</button>
             <button type=" button" (click)="resetarResponderAtividade()" class="btn btn-warning m-3">
               Cancelar</button>
             <button type="button" class="btn btn-primary m-3" (click)="salvarCorrigirAtividade(responderAtividadeForm)">

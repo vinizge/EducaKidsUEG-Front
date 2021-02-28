@@ -1,3 +1,5 @@
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { CorrecaoModalComponent } from './correcao-modal/correcao-modal.component';
 import { LoginService } from './../../services/login.service';
 import { NgForm } from '@angular/forms';
 import { ResponderAtividadeService } from '../../services/responderAtividade.service';
@@ -24,12 +26,14 @@ export class CorrecaoComponent implements OnInit {
   public aluno: any;
   public atividadePorAluno: any[];
   public atividadeNome: any;
+  public relatorioModal: BsModalRef;
 
   constructor(
     public route: ActivatedRoute,
     public responderAtividadeService: ResponderAtividadeService,
     public atividadeService: AtividadeService,
-    public loginService: LoginService
+    public loginService: LoginService,
+    public modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -120,6 +124,28 @@ export class CorrecaoComponent implements OnInit {
       }
     });
     this.atividade = this.atividades.find(busca => busca.id == atividadeId);
+  }
+
+  public abrirRelatorioModal() {
+    let atividade = {
+      atividadeId: this.atividade.id
+    }
+    this.responderAtividadeService.getAllByAtividade(atividade).subscribe(data => {
+      let lista = new Array();
+      var grouped = _.mapValues(_.groupBy(data, 'AlunoId'));
+      Object.keys(grouped).map(function (key, index) {
+        lista.push(grouped[key]);
+      });
+
+      const initialState = {
+        lista,
+        atividadeNome: this.atividadeNome
+      };
+
+      this.relatorioModal = this.modalService.show(CorrecaoModalComponent,
+        Object.assign({}, {}, { class: 'modal-lg', initialState }));
+    });
+
   }
 
   public resetarResponderAtividade() {

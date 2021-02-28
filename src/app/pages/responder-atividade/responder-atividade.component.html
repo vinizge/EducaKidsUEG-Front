@@ -6,6 +6,10 @@
       <div fxLayout="row">
         <div fxFlex=80>
           <div *ngFor="let pergunta of perguntas; let i = index">
+            <div *ngIf="pergunta.arquivo" fxLayout="row" class="m-3">
+              <label class="text-center" fxFlex=20 for="exibeImagem-{{i}}"> <strong>Imagem {{i+1}}</strong></label>
+              <img style="width: 600px;height: auto;" fxFlex=80 id="exibeImagem-{{i}}" src="{{pergunta.arquivo}}">
+            </div>
             <div fxLayout="row" class="m-3">
               <label class="text-center" fxFlex=20 for="inputPergunta-{{i}}"><strong>Pergunta {{i+1}}:</strong></label>
               <input fxFlex=80 id="inputPergunta-{{i}}" disabled name="inputPergunta-{{i}}"

@@ -84,6 +84,7 @@ export class ResponderAtividadeComponent implements OnInit {
         midia.AlunoId = this.atividade.AlunoId;
         midia.AtividadeId = this.atividade.AtividadeId;
       });
+      this.atividade.id = undefined;
       this.responderAtividadeService.salvarResponderAtividade(this.atividade).subscribe(data => {
         if (data) {
           console.log(`A responderAtividade foi inserida com sucesso!`);
@@ -98,20 +99,17 @@ export class ResponderAtividadeComponent implements OnInit {
   }
 
   public responderAtividade(atividadeId: any) {
+    this.submitted = false;
     this.atividade = this.atividades.find(busca => busca.id == atividadeId);
     this.perguntas = this.atividade['Pergunta'];
     this.perguntas.forEach(pergunta => {
       if (pergunta.objetiva) {
-        pergunta.opcoes = [{ opcao: pergunta.opcao1, value: 'a' }, { opcao: pergunta.opcao2, value: 'b' }, { opcao: pergunta.opcao3, value: 'c' }, { opcao: pergunta.opcao4, value: 'd' }]
+        pergunta.opcoes = [{ opcao: pergunta.opcao1, value: 'a' }, { opcao: pergunta.opcao2, value: 'b' }, { opcao: pergunta.opcao3, value: 'c' }, { opcao: pergunta.opcao4, value: 'd' }];
+        pergunta.resposta = '';
       }
     })
     this.midias = this.atividade['Midia'];
     this.atividade.AtividadeId = this.atividade.id;
-    delete this.atividade.id;
-    delete this.atividade.ProfessorId;
-    delete this.atividade.createdAt;
-    delete this.atividade.updatedAt;
-    delete this.atividade.Professor;
   }
 
   public resetarResponderAtividade() {
@@ -124,6 +122,11 @@ export class ResponderAtividadeComponent implements OnInit {
     }
     this.perguntas = [];
     this.midias = [];
+    this.atividade.id = '';
+    this.atividade.ProfessorId = '';
+    this.atividade.createdAt = '';
+    this.atividade.updatedAt = '';
+    this.atividade.Professor = '';
   }
 }
 
