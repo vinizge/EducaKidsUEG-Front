@@ -32,6 +32,12 @@
               Campo obrigatório</p>
           </div>
           <div fxLayout="row" class="m-3">
+            <label class="text-center" fxFlex=20 for="inputDia"><strong>Dia</strong></label>
+            <input fxFlex=30 id="inputDia" name="inputDia" [(ngModel)]="dia" type="date">
+            <label class="text-center" fxFlex=20 for="inputHora"><strong>Hora</strong></label>
+            <input fxFlex=30 id="inputHora" name="inputHora" [(ngModel)]="hora" type="time">
+          </div>
+          <div fxLayout="row" class="m-3">
             <label class="text-center" fxFlex=100><strong>Perguntas</strong></label>
           </div>
           <div class="card" style="background-color:rgb(231, 250, 231);"

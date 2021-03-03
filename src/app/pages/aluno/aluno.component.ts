@@ -83,7 +83,6 @@ export class AlunoComponent implements OnInit {
   }
 
   public salvarAluno(form: NgForm) {
-    console.log(this.aluno.EscolaId)
     this.submitted = true;
     if (form.valid && this.aluno.EscolaId) {
       this.alunoService.salvarAluno(this.aluno).subscribe(data => {

@@ -17,7 +17,6 @@ export class CorrecaoModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.lista);
     this.somaNotas();
   }
 

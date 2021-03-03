@@ -71,7 +71,6 @@ export class ResponderAtividadeComponent implements OnInit {
     this.submitted = true;
     this.atividade.AlunoId = this.aluno.id
     if (form.valid && this.atividade.AlunoId && this.atividade.AtividadeId) {
-      console.log("salvou")
       this.atividade.Pergunta.forEach(pergunta => {
         pergunta.idPergunta = pergunta.id;
         delete pergunta.id;

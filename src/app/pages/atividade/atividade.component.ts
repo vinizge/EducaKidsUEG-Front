@@ -25,6 +25,8 @@ export class AtividadeComponent implements OnInit {
   public perguntas: any[];
   public midias: any[];
   public turmas: any[];
+  public dia: any;
+  public hora: any;
 
   constructor(
     public route: ActivatedRoute,
@@ -128,6 +130,7 @@ export class AtividadeComponent implements OnInit {
   }
 
   public salvarAtividade(form: NgForm) {
+    this.atividade.prazo = this.dia + ' ' + this.hora + ':00-03';
     this.submitted = true;
     if (form.valid && this.atividade.ProfessorId && this.atividade.turma) {
       let array = [];
@@ -165,13 +168,33 @@ export class AtividadeComponent implements OnInit {
         this.atividade.perguntaAtividade = data.Pergunta;
         this.atividade.midiaAtividade = data.Midia;
         this.atividade.turma = data.Turmas[0]["id"];
-        console.log(this.atividade.turma);
+        this.dia = this.dataFormatada(data.prazo);
+        this.hora = this.horaFormatada(data.prazo);
         this.verificaMidia();
         this.verificaPergunta();
       } else {
         console.log("Atividade não encontrado");
       }
     });
+  }
+
+  public dataFormatada(data) {
+    data = new Date(data);
+    let dia = data.getDate().toString(),
+      diaF = (dia.length == 1) ? '0' + dia : dia,
+      mes = (data.getMonth() + 1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      mesF = (mes.length == 1) ? '0' + mes : mes,
+      anoF = data.getFullYear();
+    return anoF + '-' + mesF + '-' + diaF;
+  }
+
+  public horaFormatada(data) {
+    data = new Date(data);
+    let horas = data.getHours().toString();
+    let horasF = (horas.length == 1) ? '0' + horas : horas;
+    let minutos = data.getMinutes().toString();
+    let minutosF = (minutos.length == 1) ? '0' + minutos : minutos;
+    return horasF + ':' + minutosF;
   }
 
   public verificaMidia() {
@@ -205,7 +228,10 @@ export class AtividadeComponent implements OnInit {
   public resetarAtividade() {
     this.atividade.id = '';
     this.atividade.nome = '';
-    this.atividade.turma = {}
+    this.atividade.turma = {};
+    this.atividade.prazo = null;
+    this.dia = null;
+    this.hora = null;
     this.midias.forEach(midia => {
       midia.check = false;
     });

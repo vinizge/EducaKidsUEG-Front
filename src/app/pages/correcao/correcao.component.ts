@@ -118,7 +118,6 @@ export class CorrecaoComponent implements OnInit {
       });
       if (lista.length) {
         this.atividadePorAluno = lista;
-        console.log(this.atividadePorAluno)
         let acharAtividade = this.atividades.find(busca => busca.id == data[0].AtividadeId);
         this.atividadeNome = acharAtividade.nome;
       }
