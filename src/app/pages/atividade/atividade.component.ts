@@ -130,7 +130,11 @@ export class AtividadeComponent implements OnInit {
   }
 
   public salvarAtividade(form: NgForm) {
-    this.atividade.prazo = this.dia + ' ' + this.hora + ':00-03';
+    if(this.dia && this.hora){
+      this.atividade.prazo = this.dia + ' ' + this.hora + ':00-03';
+    } else {
+      this.atividade.prazo = null
+    }
     this.submitted = true;
     if (form.valid && this.atividade.ProfessorId && this.atividade.turma) {
       let array = [];
@@ -168,8 +172,10 @@ export class AtividadeComponent implements OnInit {
         this.atividade.perguntaAtividade = data.Pergunta;
         this.atividade.midiaAtividade = data.Midia;
         this.atividade.turma = data.Turmas[0]["id"];
-        this.dia = this.dataFormatada(data.prazo);
-        this.hora = this.horaFormatada(data.prazo);
+        if(data.prazo){
+          this.dia = this.dataFormatada(data.prazo);
+          this.hora = this.horaFormatada(data.prazo);
+        }
         this.verificaMidia();
         this.verificaPergunta();
       } else {
